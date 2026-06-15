@@ -1,30 +1,41 @@
-# 📊 Caso de Estudio: Análisis de Rendimiento Histórico y Comportamiento de Compra (e-Commerce)
+# 📊 Caso de Estudio: ¿Qué está impulsando las ventas en el e-Commerce? (Análisis de Ingresos y Retención)
 
-## 1. Contexto y Problema de Negocio
-El equipo directivo de la plataforma de e-commerce requería evaluar la salud financiera del negocio e identificar los verdaderos motores de crecimiento histórico. El objetivo fue analizar las ventas mensuales estandarizadas (mayores a $10,000 USD) para determinar si el crecimiento estaba apalancado por la adquisición de nuevos usuarios o por la fidelización de los actuales.
+## 🎯 El Reto del Negocio
+El equipo directivo necesitaba entender a fondo cómo ha evolucionado la salud financiera de la plataforma y cuáles son los verdaderos motores detrás del crecimiento. El objetivo principal fue analizar el comportamiento de las ventas mensuales (filtrando meses con ingresos mayores a $10,000 USD) para descubrir si el crecimiento actual se debe a que estamos consiguiendo clientes nuevos o a que los clientes actuales nos están comprando más seguido.
 
-## 2. Enfoque Técnico (Acción)
-Para resolver esto, se extrajeron y procesaron millones de registros de la base de datos pública `thelook_ecommerce` en **Google BigQuery**, aplicando:
-* Funciones de fecha (`EXTRACT`) para la agregación temporal (Año/Mes).
-* Funciones de agregación combinadas con conteos únicos (`COUNT(DISTINCT)`) para aislar el comportamiento de usuarios frente a transacciones.
-* Filtrado avanzado post-agregación mediante `HAVING`.
-* Métricas calculadas para medir la densidad transaccional por usuario.
+## 🛠️ Herramientas y Enfoque Técnico
+Para este análisis trabajé con la base de datos pública `thelook_ecommerce` directamente en **Google BigQuery**. El proceso técnico incluyó:
+* Extracción y limpieza de fechas con `EXTRACT` para agrupar la información por año y mes.
+* Uso de `COUNT(DISTINCT)` para separar el volumen total de órdenes del número real de clientes únicos.
+* Filtrado de datos agrupados mediante `HAVING` para enfocarnos en los periodos con mayor impacto financiero.
+* Creación de un `INNER JOIN` para cruzar el historial de transacciones con el catálogo de productos mediante la llave `product_id`.
 
-## 3. Código SQL Utilizado
-El script detallado de la consulta se encuentra en el archivo `query_analisis_mensual.sql` de este repositorio.
+El repositorio incluye los dos scripts de SQL que utilicé:
+1. `query_analisis_mensual.sql` (Métricas globales y comportamiento del cliente).
+2. `query_segmentacion_categorias.sql` (Cruce y desglose por categorías de producto).
 
-## 4. Hallazgos de Negocio & Insights Clave
-Tras analizar la data histórica desde 2024 a 2026, se detectaron tres patrones críticos:
+---
 
-* **Crecimiento Sostenido Anual:** Existe una sólida tendencia al alza año con año a partir de 2024. Aunque se observan picos habituales en temporadas comerciales de fin de año y arranques del siguiente, la estacionalidad no es el factor determinante del éxito del negocio.
-* **Despegue Reciente:** Los últimos dos meses reflejan una aceleración histórica, registrando un aumento significativo tanto en ingresos totales como en captación de clientes.
-* **El Verdadero Motor (Frecuencia de Compra):** El análisis profundo demostró matemáticamente que el verdadero motor de la facturación actual es la fidelización. El índice de órdenes por cliente experimentó un crecimiento acelerado en el último trimestre de 2026, pasando de **1.07 en abril**, a **1.12 en mayo**, y alcanzando un máximo histórico de **1.33 en el último mes**. Esto confirma que los usuarios recurrentes están incrementando drásticamente su frecuencia de compra, siendo este el pilar principal del incremento en las ventas.
-## 5. Fase 2: Análisis de Segmentación por Categorías (INNER JOIN)
-Para entender *qué* categorías de productos estaban impulsando el crecimiento transaccional, se realizó un cruce relacional entre el historial de transacciones (`order_items`) y el catálogo de productos (`products`) mediante una llave foránea (`product_id`). 
+## 📈 Mis Hallazgos e Insights de Negocio
 
-El script de esta fase se encuentra detallado en el archivo `query_segmentacion_categorias.sql`.
+Tras analizar la data histórica de 2024 a 2026, identifiqué tres patrones clave que cambian la perspectiva de la estrategia comercial:
 
-### Hallazgos de la Fase 2 & Estrategia de Negocio:
-* **Líderes de Facturación:** Las categorías que dominan los ingresos durante el 2026 son artículos de alto valor transaccional: `Outerwear & Coats`, `Jeans`, `Sweaters` y `Fashion Hoodies/Sweatshirts`.
-* **El Fenómeno de Compra Cruzada (Cross-Category Shopping):** Un dato crítico del análisis es que el índice de órdenes por cliente de forma individual en cada categoría se mantiene hermético cerca del **1.0**. 
-* **Conclusión Estratégica:** Al contrastar este dato con el incremento de 1.33 de la frecuencia global obtenido en la Fase 1, se descarta que los clientes estén recomprando el mismo tipo de producto. El verdadero motor del negocio es la **Compra Cruzada**. La plataforma está logrando con éxito que un cliente retornado diversifique su guardarropa adquiriendo categorías distintas a lo largo del trimestre, escalando hacia los productos de mayor ticket.
+### 1. Crecimiento Sostenido vs. Estacionalidad
+Hay una tendencia al alza muy sólida año con año desde el 2024. Un punto interesante es que, aunque existen los típicos picos de ventas a fin de año y principios del siguiente, estos incrementos no son tan drásticos. El éxito del negocio no depende de una temporada específica, sino de un crecimiento constante.
+
+### 2. El Verdadero Motor: Frecuencia de Compra
+Los últimos dos meses muestran un aumento muy fuerte tanto en ventas como en clientes nuevos. Sin embargo, al analizar a fondo los datos, descubrí que el factor clave no es solo la adquisición de usuarios, sino que **el número de órdenes por cliente aumentó a un ritmo mucho mayor**. 
+
+Comprobé esta hipótesis matemáticamente calculando el índice de recompra mensual, el cual dio un salto impresionante en el último trimestre:
+* **Abril 2026:** 1.07 órdenes por cliente.
+* **Mayo 2026:** 1.12 órdenes por cliente.
+* **Último mes:** 1.33 órdenes por cliente (Máximo histórico).
+
+Esto confirma que los usuarios recurrentes están regresando a comprar más veces dentro del mismo mes, siendo este el pilar principal del aumento en la facturación.
+
+### 3. Comportamiento de Compra Cruzada (Fase 2)
+Al desglosar los datos por tipo de producto, las categorías que más dinero generan son las de mayor valor transaccional (alto ticket): `Outerwear & Coats` (ropa de abrigo), `Jeans` y `Sweaters`.
+
+Lo más curioso es que al ver cada categoría por separado, el índice de órdenes por cliente se mantiene plano, muy cerca de **1.0**. 
+
+**¿Qué significa esto para el negocio?** Que los clientes VIP que están regresando a comprar no están repitiendo el mismo producto. El fenómeno real es la **Compra Cruzada (Cross-selling)**: el usuario que entra a la plataforma por una prenda básica regresa semanas después a diversificar su carrito con artículos de mayor valor. La estrategia debe enfocarse en sugerir categorías complementarias en el momento correcto.
