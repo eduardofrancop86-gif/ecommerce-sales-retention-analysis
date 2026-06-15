@@ -4,7 +4,7 @@ EXTRACT(MONTH FROM created_at) AS mes,
 
 SUM(sale_price) AS ingresos_totales,
 
-COUNT(DISTiNCT order_id) AS total_ordenes,
+COUNT(DISTINCT order_id) AS total_ordenes,
 COUNT(DISTINCT user_id) AS total_clientes,
 ROUND(COUNT(DISTINCT order_id) / COUNT(DISTINCT user_id), 2) AS ordenes_por_cliente
 
