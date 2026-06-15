@@ -1,5 +1,6 @@
 SELECT
 p.category AS categoria_producto,
+
 SUM(oi.sale_price) AS ingresos_totales,
 COUNT (DISTINCT oi.order_id) AS total_ordenes,
 COUNT (DISTINCT oi.user_id) AS total_clientes,
