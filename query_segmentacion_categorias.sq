@@ -1,0 +1,22 @@
+SELECT
+p.category AS categoria_producto,
+SUM(oi.sale_price) AS ingresos_totales,
+COUNT (DISTINCT oi.order_id) AS total_ordenes,
+COUNT (DISTINCT oi.user_id) AS total_clientes,
+ROUND(COUNT(DISTINCT oi.order_id) / COUNT(DISTINCT oi.user_id) ,2) AS ordenes_por_clientes
+
+FROM
+`bigquery-public-data.thelook_ecommerce.order_items` AS oi
+
+INNER JOIN
+`bigquery-public-data.thelook_ecommerce.products` AS p
+ON oi.product_id = p.id
+
+WHERE
+EXTRACT(YEAR FROM oi.created_at) = 2026
+
+GROUP BY
+categoria_producto
+
+ORDER BY
+ingresos_totales DESC;
