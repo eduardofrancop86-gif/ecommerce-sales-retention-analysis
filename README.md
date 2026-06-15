@@ -1,4 +1,3 @@
-========================================================================
 Caso de Estudio: Análisis de Ventas y Retención en e-Commerce
 ========================================================================
 
@@ -19,7 +18,6 @@ El repositorio incluye los dos scripts de SQL que utilicé para el proyecto:
 * query_analisis_mensual.sql (Métricas globales y comportamiento del cliente).
 * query_segmentacion_categorias.sql (Cruce y desglose por categorías de producto).
 
-========================================================================
 Hallazgos e Insights Clave
 ========================================================================
 
