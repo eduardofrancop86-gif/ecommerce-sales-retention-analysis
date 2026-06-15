@@ -1,9 +1,9 @@
-# 📊 Caso de Estudio: ¿Qué está impulsando las ventas en el e-Commerce? (Análisis de Ingresos y Retención)
+Caso de Estudio: ¿Qué está impulsando las ventas en el e-Commerce? (Análisis de Ingresos y Retención)
 
-## 🎯 El Reto del Negocio
+El Reto del Negocio
 El equipo directivo necesitaba entender a fondo cómo ha evolucionado la salud financiera de la plataforma y cuáles son los verdaderos motores detrás del crecimiento. El objetivo principal fue analizar el comportamiento de las ventas mensuales (filtrando meses con ingresos mayores a $10,000 USD) para descubrir si el crecimiento actual se debe a que estamos consiguiendo clientes nuevos o a que los clientes actuales nos están comprando más seguido.
 
-## 🛠️ Herramientas y Enfoque Técnico
+Herramientas y Enfoque Técnico
 Para este análisis trabajé con la base de datos pública `thelook_ecommerce` directamente en **Google BigQuery**. El proceso técnico incluyó:
 * Extracción y limpieza de fechas con `EXTRACT` para agrupar la información por año y mes.
 * Uso de `COUNT(DISTINCT)` para separar el volumen total de órdenes del número real de clientes únicos.
@@ -16,14 +16,14 @@ El repositorio incluye los dos scripts de SQL que utilicé:
 
 ---
 
-## 📈 Mis Hallazgos e Insights de Negocio
+Mis Hallazgos e Insights de Negocio
 
 Tras analizar la data histórica de 2024 a 2026, identifiqué tres patrones clave que cambian la perspectiva de la estrategia comercial:
 
-### 1. Crecimiento Sostenido vs. Estacionalidad
+1. Crecimiento Sostenido vs. Estacionalidad
 Hay una tendencia al alza muy sólida año con año desde el 2024. Un punto interesante es que, aunque existen los típicos picos de ventas a fin de año y principios del siguiente, estos incrementos no son tan drásticos. El éxito del negocio no depende de una temporada específica, sino de un crecimiento constante.
 
-### 2. El Verdadero Motor: Frecuencia de Compra
+2. El Verdadero Motor: Frecuencia de Compra
 Los últimos dos meses muestran un aumento muy fuerte tanto en ventas como en clientes nuevos. Sin embargo, al analizar a fondo los datos, descubrí que el factor clave no es solo la adquisición de usuarios, sino que **el número de órdenes por cliente aumentó a un ritmo mucho mayor**. 
 
 Comprobé esta hipótesis matemáticamente calculando el índice de recompra mensual, el cual dio un salto impresionante en el último trimestre:
@@ -33,7 +33,7 @@ Comprobé esta hipótesis matemáticamente calculando el índice de recompra men
 
 Esto confirma que los usuarios recurrentes están regresando a comprar más veces dentro del mismo mes, siendo este el pilar principal del aumento en la facturación.
 
-### 3. Comportamiento de Compra Cruzada (Fase 2)
+3. Comportamiento de Compra Cruzada (Fase 2)
 Al desglosar los datos por tipo de producto, las categorías que más dinero generan son las de mayor valor transaccional (alto ticket): `Outerwear & Coats` (ropa de abrigo), `Jeans` y `Sweaters`.
 
 Lo más curioso es que al ver cada categoría por separado, el índice de órdenes por cliente se mantiene plano, muy cerca de **1.0**. 
